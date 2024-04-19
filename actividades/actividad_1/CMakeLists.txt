@@ -20,19 +20,6 @@ endif()
 # Initialize Pico SDK
 pico_sdk_init()
 
-# Add libraries
-add_library(libs
-    ${PICO_LIBS}/lcd_i2c.c
-)
-
-# Include header files to library
-target_include_directories(libs PUBLIC 
-    ${PICO_LIBS}/inc
-)
-
-# Link libraries with SDK
-target_link_libraries(libs pico_stdlib hardware_i2c)
-
 # File to output
 add_executable(${PROJECT_NAME}
     main.c
@@ -42,15 +29,9 @@ add_executable(${PROJECT_NAME}
 pico_enable_stdio_usb(${PROJECT_NAME} 1)
 pico_enable_stdio_uart(${PROJECT_NAME} 0)
 
-# Include header files to library
-target_include_directories(${PROJECT_NAME} PUBLIC 
-    ${PICO_LIBS}/inc
-)
-
 # Link libraries with main project
-target_link_libraries(${PROJECT_NAME} 
+target_link_libraries(${PROJECT_NAME}
     pico_stdlib
     hardware_adc
-    libs
 )
 pico_add_extra_outputs(${PROJECT_NAME})
